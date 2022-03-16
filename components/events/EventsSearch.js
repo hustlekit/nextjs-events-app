@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { makeStyles } from '@mui/styles';
 import { useMediaQuery } from 'react-responsive';
 
@@ -7,19 +8,31 @@ const EventsSearch = (props) => {
 	const classes = styles();
 	const isTabletSize = useMediaQuery({ minWidth: '768px' });
 	
+	const yearInputRef = useRef();
+	const monthInputRef = useRef();
+	
+	const submitHandler = (event) => {
+		event.preventDefault();
+		
+		const selectedYear = yearInputRef.current.value;
+		const selectedMonth = monthInputRef.current.value;
+		
+		props.onSearch(selectedYear, selectedMonth);
+	};
+	
 	return (
-		<form className={ `${ classes.form } ${ isTabletSize ? 'tabletSize' : '' }` }>
+		<form className={ `${ classes.form } ${ isTabletSize ? 'tabletSize' : '' }` } onSubmit={ submitHandler }>
 			<div className={ `${ classes.controls } ${ isTabletSize ? 'tabletSize' : '' }` }>
 				<div className={ `${ classes.control } ${ isTabletSize ? 'tabletSize' : '' }` }>
 					<label htmlFor={ 'yearSelect' }>Year</label>
-					<select id={ 'yearSelect' }>
+					<select id={ 'yearSelect' } ref={ yearInputRef }>
 						<option value={ '2021' }>2021</option>
 						<option value={ '2022' }>2022</option>
 					</select>
 				</div>
 				<div className={ `${ classes.control } ${ isTabletSize ? 'tabletSize' : '' }` }>
 					<label htmlFor={ 'monthSelect' }>Year</label>
-					<select id={ 'monthSelect' }>
+					<select id={ 'monthSelect' } ref={ monthInputRef }>
 						<option value={ '1' }>January</option>
 						<option value={ '2' }>February</option>
 						<option value={ '3' }>March</option>

@@ -7,9 +7,9 @@ const HomePage = () => {
 	
 	return (
 		<div>
-			<EventList items={ featuredEvents } />
+			<EventList items={ featuredEvents }/>
 		</div>
 	);
-}
+};
 
 export default HomePage;
