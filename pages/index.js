@@ -1,15 +1,26 @@
-import { getFeaturedEvents } from "../data/dummy-data";
+import axios from 'axios';
 
-import EventList from "../components/events/EventList";
+import { getFeaturedEvents } from '../helpers/api-util';
 
-const HomePage = () => {
-	const featuredEvents = getFeaturedEvents();
-	
+import EventList from '../components/events/EventList';
+
+const HomePage = (props) => {
 	return (
 		<div>
-			<EventList items={ featuredEvents }/>
+			<EventList items={ props.events }/>
 		</div>
 	);
+};
+
+export const getStaticProps = async (context) => {
+	const events = await getFeaturedEvents();
+	
+	return {
+		props: {
+			events: events
+		},
+		revalidate: 3600
+	};
 };
 
 export default HomePage;
